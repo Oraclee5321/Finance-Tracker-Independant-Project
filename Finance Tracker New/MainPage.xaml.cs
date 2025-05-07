@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace Finance_Tracker_New;
 using SkiaSharp;
@@ -8,10 +9,15 @@ using SkiaSharp.Views.Maui;
 
 public partial class MainPage : ContentPage, INotifyPropertyChanged
 {
+    
+    
     private string _currentSpending = "£0";
     
     private string _totalBudget = "£1000";
 
+    // Link to transactions.json
+    
+    
     public string CurrentSpending
     {
         get => _currentSpending;
@@ -44,23 +50,20 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         InitializeComponent();
         BindingContext = this;
     }
-    
+
     async private void OnAddExpenseClicked(object sender, EventArgs e)
     {
-        string expense = await DisplayPromptAsync("Add Expense", "Enter the amount spent:");
-        if (decimal.TryParse(expense, out var amount))
+        var modal = new AddExpenseModalPage();
+        modal.ExpenseAdded += (s, amount) =>
         {
             CurrentSpending = $"£{decimal.Parse(CurrentSpending.Trim('£')) + amount}";
-            await DisplayAlert("Success", $"Expense of £{amount} added.", "OK");
+            DisplayAlert("Success", $"Expense of £{amount} added.", "OK");
             PieChartCanvas.InvalidateSurface();
-        }
-        else
-        {
-            await DisplayAlert("Error", "Invalid amount entered", "OK");
-        }
+        };
+        await Navigation.PushModalAsync(modal);
     }
-    
-    
+
+
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
