@@ -9,14 +9,15 @@
         <Label Text="Developer Tools" FontSize="24" HorizontalOptions="Center" />
         <!-- Add Tools here -->
         <!-- Change money -->
-        <Label Text="Change Money" FontSize="18" />
-        <Entry x:Name="MoneyEntry" Placeholder="Enter new amount" Keyboard="Numeric" />
-        <Button Text="Change" Clicked="OnChangeMoneyClicked" />
+        <StackLayout Padding="20" Spacing="15">
+            <Entry x:Name="MoneyEntry" Placeholder="Enter new amount" Keyboard="Numeric" />
+            <Button Text="Update Current Spending" Clicked="OnChangeMoneyClicked" />
+        </StackLayout>
         <!-- Change budget -->
-        <Label Text="Change Budget" FontSize="18" />
-        <Entry x:Name="BudgetEntry" Placeholder="Enter new budget" Keyboard="Numeric" />
-        <Button Text="Change" Clicked="OnChangeBudgetClicked" />
-        
+        <StackLayout Padding="20" Spacing="15">
+            <Entry x:Name="BudgetEntry" Placeholder="Enter new budget" Keyboard="Numeric" />
+            <Button Text="Update Budget" Clicked="OnChangeBudgetClicked" />
+        </StackLayout>
     </StackLayout>
 
 </ContentPage>

@@ -9,17 +9,18 @@ namespace Finance_Tracker_New;
 
 public partial class Dev : ContentPage
 {
-    public Dev()
+    private MainPage _mainPage;
+    
+    public Dev(MainPage mainPage)
     {
         InitializeComponent();
+        _mainPage = mainPage;
     }
-    
     private void OnChangeMoneyClicked(object sender, EventArgs e)
     {
         if (decimal.TryParse(MoneyEntry.Text, out var newAmount))
         {
-            var spendingref = (Application.Current.MainPage.BindingContext as MainPage)?.CurrentSpending;
-            spendingref = $"£{newAmount}";
+            _mainPage.CurrentSpending = $"£{newAmount}";
             DisplayAlert("Success", $"Current spending updated to £{newAmount}", "OK");
         }
         else
@@ -27,19 +28,18 @@ public partial class Dev : ContentPage
             DisplayAlert("Error", "Invalid amount entered", "OK");
         }
     }
+    
     private void OnChangeBudgetClicked(object sender, EventArgs e)
     {
         if (decimal.TryParse(BudgetEntry.Text, out var newBudget))
         {
-            if (Application.Current.MainPage.BindingContext is MainPage mainPage)
-            {
-                mainPage.TotalBudget = $"£{newBudget}";
-            }
+            _mainPage.TotalBudget = $"£{newBudget}";
             DisplayAlert("Success", $"Total budget updated to £{newBudget}", "OK");
         }
         else
         {
-            DisplayAlert("Error", "Invalid amount entered", "OK");
+            DisplayAlert("Error", "Invalid budget entered", "OK");
         }
     }
+    
 }

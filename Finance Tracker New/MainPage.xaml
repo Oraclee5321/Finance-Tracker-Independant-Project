@@ -11,6 +11,7 @@
             <RowDefinition Height="Auto" /> <!-- Header -->
             <RowDefinition Height="Auto" />    <!-- Current Spending -->
             <RowDefinition Height="*" />       <!-- Pie Chart -->
+            <RowDefinition Height="Auto" />    <!-- Buttons -->
             <RowDefinition Height="50" />   <!-- Bottom Navigation Bar -->
         </Grid.RowDefinitions>
         
@@ -20,18 +21,25 @@
         </StackLayout>
         
         <!-- Display current spending -->
-        <StackLayout Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center">
-            <Label Text="Current Spending" FontSize="18" TextColor="{StaticResource White}" HorizontalOptions="Center" />
+        <StackLayout Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Center" Padding="10">
+            <Label Text="Current Money Spent" FontSize="18" TextColor="{StaticResource White}" HorizontalOptions="Center" />
             <Label Text="{Binding CurrentSpending}" FontSize="36" TextColor="{StaticResource White}" HorizontalOptions="Center" />
-            <Label Text="of" FontSize="18" TextColor="{StaticResource White}" HorizontalOptions="Center" />
-            <Label Text="{Binding TotalBudget}" FontSize="18" TextColor="{StaticResource White}" HorizontalOptions="Center" />
-        </StackLayout> 
-        
+            <Label Text="Current Budget" FontSize="18" TextColor="{StaticResource White}" HorizontalOptions="Center" />
+            <Label Text="{Binding TotalBudget}" FontSize="36" TextColor="{StaticResource White}" HorizontalOptions="Center" />
+        </StackLayout>
 
         <!-- Custom Pie Chart in the Center -->
         <StackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
             <skia:SKCanvasView x:Name="PieChartCanvas" PaintSurface="OnCanvasViewPaintSurface" HeightRequest="200" WidthRequest="200" />
         </StackLayout>
+        
+        <!-- Buttons -->
+        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Padding="10">
+            <Button Text="Add Expense" Clicked="OnAddExpenseClicked" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" />
+            <Button Text="View Expenses"  BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" />
+        </StackLayout>
+        
+        
         
     </Grid>
 

@@ -1,29 +1,80 @@
 ﻿using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Finance_Tracker_New;
 using SkiaSharp;
 using SkiaSharp.Views.Maui;
 
-public partial class MainPage : ContentPage
+public partial class MainPage : ContentPage, INotifyPropertyChanged
 {
+    private string _currentSpending = "£0";
     
-    public string CurrentSpending { get; set; } = "£0";
-    public string TotalBudget { get; set; } = "£600";
+    private string _totalBudget = "£1000";
+
+    public string CurrentSpending
+    {
+        get => _currentSpending;
+        set
+        {
+            if (_currentSpending != value)
+            {
+                _currentSpending = value;
+                OnPropertyChanged();
+                PieChartCanvas.InvalidateSurface();
+            }
+        }
+    }
     
+    public string TotalBudget
+    {
+        get => _totalBudget;
+        set
+        {
+            if (_totalBudget != value)
+            {
+                _totalBudget = value;
+                OnPropertyChanged();
+                PieChartCanvas.InvalidateSurface();
+            }
+        }
+    }
     public MainPage()
     {
         InitializeComponent();
         BindingContext = this;
     }
     
-
+    async private void OnAddExpenseClicked(object sender, EventArgs e)
+    {
+        string expense = await DisplayPromptAsync("Add Expense", "Enter the amount spent:");
+        if (decimal.TryParse(expense, out var amount))
+        {
+            CurrentSpending = $"£{decimal.Parse(CurrentSpending.Trim('£')) + amount}";
+            await DisplayAlert("Success", $"Expense of £{amount} added.", "OK");
+            PieChartCanvas.InvalidateSurface();
+        }
+        else
+        {
+            await DisplayAlert("Error", "Invalid amount entered", "OK");
+        }
+    }
+    
+    
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
-        canvas.Clear(SKColors.White);
+        canvas.Clear(SKColors.Transparent);
         
-        var data = new List<float> {25, 35, 40};
-        var colors = new List<SKColor> {SKColors.Red, SKColors.Green, SKColors.Blue};
+        var spending = decimal.Parse(CurrentSpending.Trim('£'));
+        var budget = decimal.Parse(TotalBudget.Trim('£'));
+        
+        var data = new List<float> {
+            (float)spending,
+            (float)(budget - spending)
+        };
+        var colors = new List<SKColor> {SKColors.Red, SKColors.Green};
+        var labels = new List<string> {"Spending", "Remaining Budget"};
 
         float startAngle = 0;
         var center = new SKPoint(e.Info.Width / 2, e.Info.Height / 2);
@@ -43,6 +94,19 @@ public partial class MainPage : ContentPage
             path.ArcTo(new SKRect(center.X - radius, center.Y -  radius, center.X + radius, center.Y + radius),startAngle, sweepAngle, false);
             path.Close();
             canvas.DrawPath(path, paint);
+
+            var labelAngle = startAngle + sweepAngle / 2;
+            var labelRadius = radius * 0.7f;
+            var labelX = center.X + labelRadius * (float)Math.Cos(labelAngle * Math.PI / 180);
+            var labelY = center.Y + labelRadius * (float)Math.Sin(labelAngle * Math.PI / 180);
+            using var textPaint = new SKPaint
+            {
+                Color = SKColors.White,
+                TextSize = 40,
+                IsAntialias = true,
+                TextAlign = SKTextAlign.Center
+            };
+            canvas.DrawText(labels[i], labelX, labelY, textPaint);
             startAngle += sweepAngle;
             
         }
