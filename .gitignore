@@ -75,4 +75,6 @@ PublishScripts/
 *.tmp_proj
 *.bak
 *.swp
-bin\Debug/
+
+*.pdb
+/Finance Tracker New/bin/Debug
