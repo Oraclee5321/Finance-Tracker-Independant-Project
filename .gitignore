@@ -1,0 +1,78 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+*.sln.iml
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Build artifacts
+*.dll
+*.exe
+*.app
+*.log
+*.pdb
+*.cache
+*.ilk
+*.lib
+*.obj
+*.tmp
+*.vspscc
+*.vssscc
+
+# NuGet
+*.nupkg
+project.lock.json
+*.nuget.props
+*.nuget.targets
+packages/
+
+# SkiaSharp
+.skia/
+
+# Node.js
+node_modules/
+
+# Publish
+publish/
+*.publish.xml
+*.pubxml
+*.pubxml.user
+
+# Azure
+*.azurePubxml
+PublishScripts/
+
+# Logs
+*.log
+*.tlog
+
+# IDE-specific
+*.pidb
+*.sdf
+*.VC.db
+*.VC.opendb
+
+# Others
+*.dbmdl
+*.pfx
+*.publishsettings
+*.tmp_proj
+*.bak
+*.swp
+bin\Debug/
