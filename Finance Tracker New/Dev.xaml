@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Finance_Tracker_New.Dev"
+             Title="Dev Page"
+             Shell.NavBarIsVisible="True">
+
+    <StackLayout Padding="20" Spacing="15">
+        <Label Text="Developer Tools" FontSize="24" HorizontalOptions="Center" />
+        <!-- Add Tools here -->
+        <!-- Change money -->
+        <Label Text="Change Money" FontSize="18" />
+        <Entry x:Name="MoneyEntry" Placeholder="Enter new amount" Keyboard="Numeric" />
+        <Button Text="Change" Clicked="OnChangeMoneyClicked" />
+        <!-- Change budget -->
+        <Label Text="Change Budget" FontSize="18" />
+        <Entry x:Name="BudgetEntry" Placeholder="Enter new budget" Keyboard="Numeric" />
+        <Button Text="Change" Clicked="OnChangeBudgetClicked" />
+        
+    </StackLayout>
+
+</ContentPage>

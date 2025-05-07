@@ -6,10 +6,14 @@
     xmlns:local="clr-namespace:Finance_Tracker_New"
     Shell.FlyoutBehavior="Flyout"
     Title="Finance_Tracker_New">
-
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    
+    <TabBar>
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
+        </Tab>
+        <Tab Title="Dev" Icon="dev.png">
+            <ShellContent ContentTemplate="{DataTemplate local:Dev}" Route="DevPage" />
+        </Tab>
+    </TabBar>
 
 </Shell>
