@@ -62,6 +62,12 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         };
         await Navigation.PushModalAsync(modal);
     }
+    
+    async private void OnViewExpenseClicked(object sender, EventArgs e)
+    {
+        var modal = new ViewExpenseModal();
+        await Navigation.PushModalAsync(modal);
+    }
 
 
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)

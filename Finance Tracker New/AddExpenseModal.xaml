@@ -4,6 +4,8 @@
              x:Class="Finance_Tracker_New.AddExpenseModalPage"
              Title="Add Expense">
     <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Enter the expense Name:" FontSize="Medium" />
+        <Entry x:Name="ExpenseNameEntry" Placeholder="Expense Name" />
         <Label Text="Enter the amount spent:" FontSize="Medium" />
         <Entry x:Name="ExpenseEntry" Keyboard="Numeric" Placeholder="Amount" />
         <HorizontalStackLayout Spacing="10">

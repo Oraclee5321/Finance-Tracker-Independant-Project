@@ -28,7 +28,7 @@
             <Label Text="{Binding TotalBudget}" FontSize="36" TextColor="{StaticResource White}" HorizontalOptions="Center" />
         </StackLayout>
 
-        <!-- Custom Pie Chart in the Center -->
+        <!-- Pie Chart in the Center -->
         <StackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
             <skia:SKCanvasView x:Name="PieChartCanvas" PaintSurface="OnCanvasViewPaintSurface" HeightRequest="200" WidthRequest="200" />
         </StackLayout>
@@ -36,7 +36,7 @@
         <!-- Buttons -->
         <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="End" Padding="10">
             <Button Text="Add Expense" Clicked="OnAddExpenseClicked" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" />
-            <Button Text="View Expenses"  BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" />
+            <Button Text="View Expenses" Clicked="OnViewExpenseClicked" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" />
         </StackLayout>
         
         
