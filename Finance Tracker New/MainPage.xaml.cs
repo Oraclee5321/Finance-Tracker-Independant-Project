@@ -10,10 +10,9 @@ using SkiaSharp.Views.Maui;
 public partial class MainPage : ContentPage, INotifyPropertyChanged
 {
     
-    
     private string _currentSpending = "£0";
     
-    private string _totalBudget = "£1000";
+    private string _totalBudget = "£10000";
 
     // Link to transactions.json
     
@@ -45,10 +44,40 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
             }
         }
     }
+
+    public void LoadSpending()
+    {
+        try
+        {
+            var filePath = Path.Combine(FileSystem.AppDataDirectory, "transactions.json");
+            if (!File.Exists(filePath))
+            {
+                DisplayAlert("Error", "No transactions found.", "OK");
+                return;
+            }
+            using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            using var reader = new StreamReader(stream);
+            var json = reader.ReadToEnd();
+            var expenses = JsonSerializer.Deserialize<List<Expense>>(json);
+            if (expenses == null || !expenses.Any())
+            {
+                DisplayAlert("Error", "No transactions found.", "OK");
+                return;
+            }
+            CurrentSpending = $"£{expenses.Sum(e => e.Cost)}";
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Error", $"Failed to load expenses: {ex.Message}", "OK");
+        }
+    }
+    
+    
     public MainPage()
     {
         InitializeComponent();
         BindingContext = this;
+        LoadSpending();
     }
 
     async private void OnAddExpenseClicked(object sender, EventArgs e)

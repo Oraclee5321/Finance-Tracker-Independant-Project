@@ -1,22 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Finance_Tracker_New.ViewExpenseModal"
              Title="View Expenses">
     <ContentPage.Content>
-        <ListView x:Name="expenseList">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" Spacing="10">
-                            <Label Text="{Binding Name}" />
-                            <Label Text="{Binding Cost}" />
-                            <Label Text="{Binding Date}" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+            <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="0,0,0,50">
+                    <CollectionView ItemsSource="{Binding Expenses}" Margin="10">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                                    <VerticalStackLayout Spacing="5">
+                                        <!-- Title: Date -->
+                                        <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="White" />
+
+                                        <!-- Name -->
+                                        <Label Text="{Binding Name}"
+                                               FontSize="16"
+                                               TextColor="White" />
+
+                                        <!-- Cost -->
+                                        <Label Text="{Binding Cost, StringFormat='Cost: £{0:F2}'}"
+                                               FontSize="16"
+                                               TextColor="White" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+            </VerticalStackLayout>
+            </ScrollView>
+            <Button Text="Close"
+                    Clicked="OnCloseClicked"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource White}"
+                    Margin="10"
+                    VerticalOptions="End"
+                    HorizontalOptions="Fill" />
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
