@@ -95,6 +95,11 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
     async private void OnViewExpenseClicked(object sender, EventArgs e)
     {
         var modal = new ViewExpenseModal();
+        modal.ExpenseRemoved += (s, amount) =>
+        {
+            CurrentSpending = $"£{decimal.Parse(CurrentSpending.Trim('£')) + amount}";
+            PieChartCanvas.InvalidateSurface();
+        };
         await Navigation.PushModalAsync(modal);
     }
 

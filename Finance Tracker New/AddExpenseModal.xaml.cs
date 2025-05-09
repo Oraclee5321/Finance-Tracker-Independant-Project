@@ -5,6 +5,7 @@ namespace Finance_Tracker_New;
 
 public class Expense
 {
+    public int ID { get; set; }
     public DateTime Date { get; set; }
     public string Name { get; set; }
     public decimal Cost { get; set; }
@@ -33,14 +34,6 @@ public partial class AddExpenseModalPage : ContentPage
             // Save the expense to transactions.json
             try
             {
-                var expense = new Expense
-                {
-                    Date = DateTime.Now,
-                    Name = expenseName,
-                    Cost = amount
-                };
-                string jsonExpense = JsonSerializer.Serialize(expense);
-
                 var filePath = Path.Combine(FileSystem.AppDataDirectory, "transactions.json");
                 if (!File.Exists(filePath))
                 {
@@ -50,6 +43,25 @@ public partial class AddExpenseModalPage : ContentPage
                     }
                 }
                 var existingContent = await File.ReadAllTextAsync(filePath);
+                // Count last id value
+                int lastvalue;
+                if (string.IsNullOrWhiteSpace(existingContent) || existingContent == "[]")
+                {
+                    lastvalue = 0;
+                }
+                else
+                {
+                    var lastExpense = JsonSerializer.Deserialize<List<Expense>>(existingContent)?.LastOrDefault();
+                    lastvalue = lastExpense?.ID ?? 0;
+                }
+                var expense = new Expense
+                {
+                    ID = lastvalue + 1,
+                    Date = DateTime.Now,
+                    Name = expenseName,
+                    Cost = amount
+                };
+                string jsonExpense = JsonSerializer.Serialize(expense);
                 if (string.IsNullOrWhiteSpace(existingContent) || existingContent == "[]")
                 {
                     existingContent = "[";

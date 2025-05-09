@@ -11,23 +11,33 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
-                                    <VerticalStackLayout Spacing="5">
-                                        <!-- Title: Date -->
-                                        <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
-                                               FontSize="18"
-                                               FontAttributes="Bold"
-                                               TextColor="White" />
+                                    <HorizontalStackLayout>
+                                        <VerticalStackLayout Spacing="5">
+                                            <!-- Title: Date -->
+                                            <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                                   FontSize="18"
+                                                   FontAttributes="Bold"
+                                                   TextColor="White" />
 
-                                        <!-- Name -->
-                                        <Label Text="{Binding Name}"
-                                               FontSize="16"
-                                               TextColor="White" />
+                                            <!-- Name -->
+                                            <Label Text="{Binding Name}"
+                                                   FontSize="16"
+                                                   TextColor="White" />
 
-                                        <!-- Cost -->
-                                        <Label Text="{Binding Cost, StringFormat='Cost: £{0:F2}'}"
-                                               FontSize="16"
-                                               TextColor="White" />
-                                    </VerticalStackLayout>
+                                            <!-- Cost -->
+                                            <Label Text="{Binding Cost, StringFormat='Cost: £{0:F2}'}"
+                                                   FontSize="16"
+                                                   TextColor="White" />
+                                        </VerticalStackLayout>
+                                        <Button Text="Delete"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteExpenseCommand}"
+                                                CommandParameter="{Binding .}"
+                                                Clicked="OnDeleteClicked"
+                                                BackgroundColor="Red"
+                                                TextColor="White"
+                                                HorizontalOptions="End" />
+                                                
+                                    </HorizontalStackLayout>
                                 </Frame>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
