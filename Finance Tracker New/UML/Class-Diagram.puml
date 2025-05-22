@@ -1,0 +1,57 @@
+﻿@startuml
+skinparam maxWidth 2000
+
+package "Finance Tracker" {
+    package "UI Elements" {
+        class MainPage <<UI>> {
+            - string _currentSpending
+            - string _totalBudget
+            + string CurrentSpending
+            + string TotalBudget
+            + void LoadSpending()
+            + void OnAddExpenseClicked()
+            + void OnViewExpenseClicked()
+            + void PiechartDraw()
+        }
+
+        class AddExpenseModalPage <<UI>> {
+            + event EventHandler<decimal> ExpenseAdded
+            + void OnCancelClicked()
+            + void OnAddClicked()
+        }
+
+        class ViewExpenseModal <<UI>> {
+            - List<Expense> Expenses
+            + List<Expense> LoadExpenses()
+            + void OnCloseClicked()
+        }
+    }
+
+    package "Logical Component" {
+        class Expense <<Logic>> {
+            + string Name
+            + decimal Cost
+            + DateTime Date
+            + void AddToJson()
+        }
+    }
+
+    package "Data Source" {
+        class Transactions <<JSON FILE>> {
+            + string ID
+            + string Name of Transaction
+            + decimal Cost
+            + DateTime Time
+        }
+    }
+
+    MainPage --> AddExpenseModalPage : uses
+    MainPage --> ViewExpenseModal : uses
+    ViewExpenseModal --> Expense : contains
+    AddExpenseModalPage --> Expense : creates
+    ViewExpenseModal --> Transactions : reads
+    MainPage --> Transactions : reads
+    Expense --> Transactions : updates
+}
+
+@enduml

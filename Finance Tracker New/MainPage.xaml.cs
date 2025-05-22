@@ -13,9 +13,6 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
     private string _currentSpending = "£0";
     
     private string _totalBudget = "£10000";
-
-    // Link to transactions.json
-    
     
     public string CurrentSpending
     {
@@ -72,7 +69,6 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
         }
     }
     
-    
     public MainPage()
     {
         InitializeComponent();
@@ -104,7 +100,7 @@ public partial class MainPage : ContentPage, INotifyPropertyChanged
     }
 
 
-    private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
+    private void PiechartDraw(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
         canvas.Clear(SKColors.Transparent);

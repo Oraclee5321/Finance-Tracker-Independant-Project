@@ -8,13 +8,13 @@ public partial class ViewExpenseModal : ContentPage
 {
     public event EventHandler<decimal> ExpenseRemoved;
     
-    public List<displayExpense> Expenses { get; set; }
+    public List<Expense> Expenses { get; set; }
     
 
     public ViewExpenseModal()
     {
         InitializeComponent();
-        Expenses = LoadExpenses() ?? new List<displayExpense>();
+        Expenses = LoadExpenses() ?? new List<Expense>();
         BindingContext = this;
     }
     
@@ -23,7 +23,7 @@ public partial class ViewExpenseModal : ContentPage
     private void OnDeleteClicked(object sender, EventArgs e)
     {
         var button = (Button)sender;
-        var expense = (displayExpense)button.BindingContext;
+        var expense = (Expense)button.BindingContext;
         if (expense != null)
         {
             try
@@ -45,7 +45,7 @@ public partial class ViewExpenseModal : ContentPage
                 if (File.Exists(filePath))
                 {
                     var json = File.ReadAllText(filePath);
-                    var expenses = JsonSerializer.Deserialize<List<displayExpense>>(json);
+                    var expenses = JsonSerializer.Deserialize<List<Expense>>(json);
                     if (expenses != null)
                     {
                         delitem = expenses.FirstOrDefault(x => x.ID == expense.ID);
@@ -69,7 +69,7 @@ public partial class ViewExpenseModal : ContentPage
         }
     }
 
-    private List<displayExpense> LoadExpenses()
+    private List<Expense> LoadExpenses()
     {
         try
         {
@@ -78,7 +78,7 @@ public partial class ViewExpenseModal : ContentPage
                 return null;
 
             var json = File.ReadAllText(filePath);
-            return JsonSerializer.Deserialize<List<displayExpense>>(json);
+            return JsonSerializer.Deserialize<List<Expense>>(json);
         }
         catch
         {
@@ -90,12 +90,4 @@ public partial class ViewExpenseModal : ContentPage
         Navigation.PopModalAsync();
         
     }
-}
-
-public class displayExpense
-{
-    public int ID { get; set; }
-    public DateTime Date { get; set; }
-    public string Name { get; set; }
-    public decimal Cost { get; set; }
 }

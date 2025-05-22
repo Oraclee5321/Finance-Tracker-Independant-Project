@@ -30,7 +30,7 @@
 
         <!-- Pie Chart in the Center -->
         <StackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
-            <skia:SKCanvasView x:Name="PieChartCanvas" PaintSurface="OnCanvasViewPaintSurface" HeightRequest="200" WidthRequest="200" />
+            <skia:SKCanvasView x:Name="PieChartCanvas" PaintSurface="PiechartDraw" HeightRequest="200" WidthRequest="200" />
         </StackLayout>
         
         <!-- Buttons -->
@@ -38,9 +38,6 @@
             <Button Text="Add Expense" Clicked="OnAddExpenseClicked" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" />
             <Button Text="View Expenses" Clicked="OnViewExpenseClicked" BackgroundColor="{StaticResource Primary}" TextColor="{StaticResource White}" />
         </StackLayout>
-        
-        
-        
     </Grid>
 
 </ContentPage>

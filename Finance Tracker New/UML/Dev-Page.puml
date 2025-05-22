@@ -1,0 +1,26 @@
+﻿@startuml
+@startuml
+skinparam maxWidth 2000
+
+package "Finance Tracker" {
+        class MainPage <<UI>> {
+            - string _currentSpending
+            - string _totalBudget
+            + string CurrentSpending
+            + string TotalBudget
+            + void LoadSpending()
+            + void OnAddExpenseClicked()
+            + void OnViewExpenseClicked()
+            + void PiechartDraw()
+        }
+
+        class Dev <<UI>> {
+            - MainPage _mainPage
+            + void OnChangeMoneyClicked()
+            + void OnChangeBudgetClicked()
+        }
+    MainPage <-- Dev : Accesses properties
+    Dev ..> MainPage : Updates CurrentSpending and TotalBudget
+}
+
+@enduml

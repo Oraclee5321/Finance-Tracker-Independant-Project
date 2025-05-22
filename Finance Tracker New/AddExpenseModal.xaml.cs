@@ -2,15 +2,6 @@
 using System.Text.Json;
 
 namespace Finance_Tracker_New;
-
-public class Expense
-{
-    public int ID { get; set; }
-    public DateTime Date { get; set; }
-    public string Name { get; set; }
-    public decimal Cost { get; set; }
-}
-
 public partial class AddExpenseModalPage : ContentPage
 {
     public event EventHandler<decimal> ExpenseAdded;
@@ -61,17 +52,7 @@ public partial class AddExpenseModalPage : ContentPage
                     Name = expenseName,
                     Cost = amount
                 };
-                string jsonExpense = JsonSerializer.Serialize(expense);
-                if (string.IsNullOrWhiteSpace(existingContent) || existingContent == "[]")
-                {
-                    existingContent = "[";
-                }
-                else
-                {
-                    existingContent = existingContent.TrimEnd(']', '\n', '\r') + ",";
-                }
-                existingContent += jsonExpense + "\n]";
-                await File.WriteAllTextAsync(filePath, existingContent);
+                expense.addToJson();
                 
             }
             catch (Exception ex)

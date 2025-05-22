@@ -1,0 +1,18 @@
+﻿@startuml
+start
+:User clicks on Add Expense button;
+:Open Add Expense Modal;
+
+repeat
+:User enters expense details;
+:User clicks on Add button;
+:Validate expense details;
+repeat while (Valid?) is (no)
+-> yes;
+:Create new Expense object;
+:Update Transactions JSON file;
+:Update Main Page with new expense;
+:Refresh expense list;
+:Close Add Expense Modal;
+stop
+@enduml

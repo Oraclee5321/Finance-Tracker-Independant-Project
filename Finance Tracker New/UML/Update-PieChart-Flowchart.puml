@@ -1,0 +1,18 @@
+﻿@startuml
+start
+:Load Main Page;
+:Initialize Components;
+:Load Spending from transactions.json;
+if (File exists?) then (yes)
+    :Deserialize JSON to Expense List;
+    if (Expenses exist?) then (yes)
+        :Calculate Current Spending;
+        :Update Pie Chart;
+    else (no)
+        :Show "No transactions found" alert;
+    endif
+else (no)
+    :Show "No transactions found" alert;
+endif
+stop
+@enduml

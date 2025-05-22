@@ -1,0 +1,44 @@
+﻿@startuml
+actor User
+
+User -> MainPage : Load Main Page
+activate MainPage
+MainPage -> Transactions : Load Spending from transactions.json
+alt File exists
+    Transactions --> MainPage : Deserialize JSON to Expense List
+    MainPage -> MainPage : Update UI (Spending, Pie Chart)
+else
+    MainPage -> MainPage : Show "No transactions found" alert
+end
+deactivate MainPage
+
+User -> MainPage : Click Add Expense button
+MainPage -> AddExpenseModalPage : Open Add Expense Modal
+activate AddExpenseModalPage
+User -> AddExpenseModalPage : Enter details and click Add
+AddExpenseModalPage -> AddExpenseModalPage : Validate details
+alt Valid
+    AddExpenseModalPage -> Expense : Create Expense object
+    Expense -> Transactions : Add expense to JSON
+    AddExpenseModalPage -> AddExpenseModalPage : Update Main Page UI with new expense
+    AddExpenseModalPage -> AddExpenseModalPage : Close Modal
+else
+    AddExpenseModalPage -> AddExpenseModalPage : Show error alert
+    AddExpenseModalPage -> AddExpenseModalPage : Highlight invalid fields
+    AddExpenseModalPage -> User : Display error message
+    User -> AddExpenseModalPage : Correct details
+end
+deactivate AddExpenseModalPage
+
+User -> MainPage : Click View Expense button
+MainPage -> ViewExpenseModal : Open View Expense Modal
+activate ViewExpenseModal
+ViewExpenseModal -> Transactions : Load Expenses
+alt File exists
+    Transactions --> ViewExpenseModal : Deserialize JSON
+    ViewExpenseModal -> ViewExpenseModal : Display Expense List
+else
+    ViewExpenseModal -> ViewExpenseModal : Show "No transactions found" alert
+end
+deactivate ViewExpenseModal
+@enduml

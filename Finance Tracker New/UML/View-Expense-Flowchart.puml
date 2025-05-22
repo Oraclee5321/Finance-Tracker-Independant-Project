@@ -1,0 +1,13 @@
+﻿@startuml
+start
+:User clicks on View Expense button;
+:Open View Expense Modal;
+repeat
+:Load expense from Transactions JSON file;
+:Serialize Json to Expense object;
+:Add object to array;
+repeat while (Expenses exist?) is (yes)
+-> no;
+:Display expense list;
+stop
+@enduml
